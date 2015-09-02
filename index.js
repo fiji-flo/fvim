@@ -1,31 +1,29 @@
-var self = require("sdk/self");
+var self = require('sdk/self');
 var tabs = require('sdk/tabs');
-var pageMod = require("sdk/page-mod");
-var self = require("sdk/self");
-var clipboard = require("sdk/clipboard");
+var pageMod = require('sdk/page-mod');
+var self = require('sdk/self');
+var clipboard = require('sdk/clipboard');
 
 let frameScriptUrl = self.data.url('frame.js');
 pageMod.PageMod({
-    include: "*",
+    include: ['*','about:*'],
     contentScriptFile: frameScriptUrl,
-    contentScriptWhen: "start",
-    attachTo: ["existing", "top"],
+    contentScriptWhen: 'start',
+    attachTo: ['existing', 'top'],
     onAttach: function(worker) {
-        worker.port.on("fGesture:key", function(ev) {
+        worker.port.on('fGesture:event', function(ev) {
             handleEvent(ev);
         });
     }
 });
 
-function handleEvent(key) {
-    if (key === 't') {
-        console.log(key);
-        tabs.open("");
-    }
-    let action = actions.find(function(value) {
-        return value.key == key;
-    });
-    if (action) {
-        runCommand(action.command);
+function handleEvent(ev) {
+    switch (ev.cmd) {
+    case 'newTab': tabs.open('');
+        break;
+    case 'openInNewTab': tabs.open(clipboard.get());
+        break;
+    case 'yankUrl': clipboard.set(ev.param, 'text');
+        break;
     }
 }
