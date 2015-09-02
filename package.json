@@ -1,12 +1,12 @@
 {
-  "title": "fgestures",
-  "name": "fgestures",
+  "title": "fvim",
+  "name": "fvim",
   "version": "0.0.1",
-  "description": "forward/backward mouse gestures",
+  "description": "vim + e10s",
   "main": "index.js",
   "author": "fiji",
   "engines": {
-    "firefox": ">=38.0a1"
+    "firefox": ">=40.0a1"
   },
   "license": "MIT"
 }

@@ -2,7 +2,7 @@ var self = require("sdk/self");
 var tabs = require('sdk/tabs');
 var pageMod = require("sdk/page-mod");
 var self = require("sdk/self");
-var utils = require('sdk/window/utils');
+var clipboard = require("sdk/clipboard");
 
 let frameScriptUrl = self.data.url('frame.js');
 pageMod.PageMod({
@@ -17,15 +17,6 @@ pageMod.PageMod({
     }
 });
 
-var actions = [
-    {key: 'h', command: 'cmd_scrollLeft'},
-    {key: 'j', command: 'cmd_scrollLineDown'},
-    {key: 'k', command: 'cmd_scrollLineUp'},
-    {key: 'l', command: 'cmd_scrollRight'},
-    {key: 'g', command: 'cmd_scrollTop'},
-    {key: 'G', command: 'cmd_scrollBottom'}
-];
-
 function handleEvent(key) {
     if (key === 't') {
         console.log(key);
@@ -37,10 +28,4 @@ function handleEvent(key) {
     if (action) {
         runCommand(action.command);
     }
-}
-
-function runCommand(cmd) {
-    let window = utils.getMostRecentBrowserWindow();
-    let controller = window.document.commandDispatcher.getControllerForCommand(cmd);
-    controller.doCommand(cmd);
 }
