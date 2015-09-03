@@ -26,6 +26,9 @@ function openInNewTab() {
     self.port.emit('fGesture:event', { cmd: 'openInNewTab' });
 }
 let fG = (ev) => {
+    if (ev.target.tagName === 'INPUT') {
+        return;
+    }
     switch (ev.key) {
     case 'g': scrollTop();
         break;

@@ -6,15 +6,15 @@
           <em:bootstrap>true</em:bootstrap>
           <em:unpack>false</em:unpack>
           <em:version>0.0.1</em:version>
-          <em:name>fgestures</em:name>
-          <em:description>forward/backward mouse gestures</em:description>
+          <em:name>fvim</em:name>
+          <em:description>vim + e10s</em:description>
           <em:creator>fiji</em:creator>
 
           <em:targetApplication>
             <Description>
               <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-              <em:minVersion>38.0a1</em:minVersion>
-              <em:maxVersion>39.0</em:maxVersion>
+              <em:minVersion>40.0a1</em:minVersion>
+              <em:maxVersion>42.0</em:maxVersion>
 </Description>
 </em:targetApplication>
 

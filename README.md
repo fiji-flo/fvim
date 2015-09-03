@@ -1,2 +1,2 @@
-#fgestures
-forward/backward mouse gestures
+#fvim
+vim + e10s
