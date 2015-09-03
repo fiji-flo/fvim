@@ -7,12 +7,12 @@ var mode = MODES.normal;
 let emit = x => self.port.emit('fvim:event', x);
 
 var CMDS = {
-    scrollTop: () => emit({ cmd: 'scrollTop' }),
-    scrollBottom: () => emit({ cmd: 'scrollBottom' }),
-    scrollDown: () => emit({ cmd: 'scrollDown' }),
-    scrollUp: () => emit({ cmd: 'scrollUp' }),
-    scrollLeft: () => emit({ cmd: 'scrollLeft' }),
-    scrollRight: () => emit({ cmd: 'scrollRight' }),
+    scrollTop: () => window.scrollTo(0, 0),
+    scrollBottom: () => window.scrollTo(0, window.scrollMaxY),
+    scrollDown: () => window.scrollByLines(1),
+    scrollUp: () => window.scrollByLines(-1),
+    scrollLeft: () => window.scollBy(-10, 0),
+    scrollRight: () => window.scollBy(10, 0),
     yankUrl: () => emit({ cmd: 'yankUrl', param: window.location.href }),
     newTab: () => emit({ cmd: 'newTab' }),
     openInNewTab: () => emit({ cmd: 'openInNewTab' }),
