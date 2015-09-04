@@ -3,6 +3,8 @@ let tabs = require('sdk/tabs');
 let pageMod = require("sdk/page-mod");
 let clipboard = require('sdk/clipboard');
 
+let newTabUrl = 'about:newtab';
+
 let focusUrlBar = () => {
     let windows = require("sdk/windows").browserWindows;
     let activeWindow = windows.activeWindow;
@@ -13,10 +15,16 @@ let focusUrlBar = () => {
     urlbar.select();
 };
 
+let focusUrlBarOnNewTab = () => {
+    if (tabs.activeTab.url === newTabUrl) {
+        focusUrlBar();
+    }
+};
+
 let handleEvent = ev => {
     switch (ev.cmd) {
-    case 'newTab': tabs.open({ url:'about:newtab',
-                               onReady: focusUrlBar });
+    case 'newTab': tabs.open({ url: newTabUrl,
+                               onReady: focusUrlBarOnNewTab });
         break;
     case 'openInNewTab': tabs.open(clipboard.get());
         break;

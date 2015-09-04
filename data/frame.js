@@ -28,8 +28,16 @@ var CMDS = {
 };
 let fG = (ev) => {
     if (ev.key === "Escape") {
-        mode = mode === MODES.insert ? MODES.normal : MODES.auto;
+        switch (mode) {
+        case MODES.insert: mode = MODES.normal;
+            break;
+        case MODES.auto: mode = MODES.normal;
+            break;
+        case MODES.normal: mode = MODES.auto;
+            break;
+        }
     }
+
     switch (mode) {
     case MODES.insert: return;
     case MODES.auto: if (editable(ev.target)) return;
@@ -59,9 +67,9 @@ let fG = (ev) => {
         break;
     case 'p': CMDS.openInCurrentTab();
         break;
-    default: return;
     }
     ev.preventDefault();
     ev.stopPropagation();
+    return;
 };
 addEventListener('keydown', fG, true);
