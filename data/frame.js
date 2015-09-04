@@ -1,10 +1,16 @@
 var MODES = {
     normal: Symbol('normal'),
     insert: Symbol('insert'),
+    auto: Symbol('auto'),
 };
-var mode = MODES.normal;
+var mode = MODES.auto;
 
 let emit = x => self.port.emit('fvim:event', x);
+
+let editable = x =>
+    x.tagName === 'INPUT' ||
+    x.tagName === 'TEXTAREA' ||
+    x.getAttribute('g_editable') === 'true';
 
 var CMDS = {
     scrollTop: () => window.scrollTo(0, 0),
@@ -19,12 +25,12 @@ var CMDS = {
     setInsertMode: () => mode = MODES.insert,
 };
 let fG = (ev) => {
-    if (mode === MODES.insert) {
-        if (ev.key === "Escape") {
-            mode = MODES.normal;
-        } else {
-            return;
-        }
+    if (ev.key === "Escape") {
+        mode = mode === MODES.insert ? MODES.normal : MODES.auto;
+    }
+    switch (mode) {
+    case MODES.insert: return;
+    case MODES.auto: if (editable(ev.target)) return;
     }
     ev.preventDefault();
     ev.stopPropagation();
