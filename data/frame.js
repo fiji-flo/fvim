@@ -15,14 +15,16 @@ let editable = x =>
 var CMDS = {
     scrollTop: () => window.scrollTo(0, 0),
     scrollBottom: () => window.scrollTo(0, window.scrollMaxY),
-    scrollDown: () => window.scrollByLines(1),
-    scrollUp: () => window.scrollByLines(-1),
-    scrollLeft: () => window.scollBy(-10, 0),
-    scrollRight: () => window.scollBy(10, 0),
+    scrollDown: () => window.scrollByLines(4),
+    scrollUp: () => window.scrollByLines(-4),
+    scrollLeft: () => window.scollBy(-40, 0),
+    scrollRight: () => window.scollBy(40, 0),
     yankUrl: () => emit({ cmd: 'yankUrl', param: window.location.href }),
     newTab: () => emit({ cmd: 'newTab' }),
     openInNewTab: () => emit({ cmd: 'openInNewTab' }),
     setInsertMode: () => mode = MODES.insert,
+    focusUrlBar: () => emit({ cmd: 'focusUrlBar' }),
+    openInCurrentTab: () => emit({ cmd: 'openInCurrentTab' }),
 };
 let fG = (ev) => {
     if (ev.key === "Escape") {
@@ -32,8 +34,6 @@ let fG = (ev) => {
     case MODES.insert: return;
     case MODES.auto: if (editable(ev.target)) return;
     }
-    ev.preventDefault();
-    ev.stopPropagation();
     switch (ev.key) {
     case 'g': CMDS.scrollTop();
         break;
@@ -55,6 +55,13 @@ let fG = (ev) => {
         break;
     case 'i': CMDS.setInsertMode();
         break;
+    case 'o': CMDS.focusUrlBar();
+        break;
+    case 'p': CMDS.openInCurrentTab();
+        break;
+    default: return;
     }
+    ev.preventDefault();
+    ev.stopPropagation();
 };
 addEventListener('keydown', fG, true);
