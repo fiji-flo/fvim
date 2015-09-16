@@ -24,7 +24,7 @@ let focusUrlBarOnNewTab = () => {
 let handleEvent = ev => {
     switch (ev.cmd) {
     case 'newTab': tabs.open({ url: newTabUrl,
-                               onReady: focusUrlBarOnNewTab });
+                               onOpen: focusUrlBarOnNewTab });
         break;
     case 'openInNewTab': tabs.open(clipboard.get());
         break;
@@ -40,7 +40,7 @@ let handleEvent = ev => {
 let frameScriptUrl = self.data.url('frame.js');
 let styleUrl = self.data.url('style.css');
 pageMod.PageMod({
-    include: ["*", "about:*"],
+    include: [/.*/, /about:.*/],
     contentStyleFile: styleUrl,
     contentScriptFile: frameScriptUrl,
     contentScriptWhen: "start",

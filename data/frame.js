@@ -25,6 +25,7 @@ let CMDS = {
     setInsertMode: () => mode = MODES.insert,
     focusUrlBar: () => emit({ cmd: 'focusUrlBar' }),
     openInCurrentTab: () => emit({ cmd: 'openInCurrentTab' }),
+    reload: (force=false) => document.location.reload(force),
 };
 
 let MAPPING = {
@@ -40,6 +41,8 @@ let MAPPING = {
     i: CMDS.setInsertMode,
     o: CMDS.focusUrlBar,
     p: CMDS.openInCurrentTab,
+    r: CMDS.reload,
+    R: () => CMDS.reload(true),
 };
 let fG = (ev) => {
     if (ev.key === "Escape") {
